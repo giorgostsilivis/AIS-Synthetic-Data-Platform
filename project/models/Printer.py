@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import flash
+import pandas as pd
+from project.resampling import resampling
 
 
 class Printer(object):
@@ -9,3 +11,18 @@ class Printer(object):
             flash("You didn't enter any text to flash")
         else:
             flash(text + "!!!")
+
+class Data(object):
+
+    def data_leech(self):
+        # df = pd.read_csv('project/static/vessel.csv')[['longitude','latitude','sog']]
+        df = pd.read_csv('project/static/vessel.csv')
+        return df
+
+class Data_pred(object):
+
+    def data_leech(self):
+        # df = pd.read_csv('project/static/vessel.csv')[['longitude','latitude','sog']]
+        resampling.resample()
+        df = pd.read_csv('project/static/pred_vessel.csv')
+        return df
