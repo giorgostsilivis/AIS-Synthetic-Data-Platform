@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired
 import folium
 import pandas as pd
 import os
-from project.models.Printer import Printer, Data, Data_pred
+from project.models.Printer import Printer, Data, Data_pred, Data_pred_kin
 
 class CreateForm(FlaskForm):
     text = StringField('name', validators=[DataRequired()])
@@ -118,3 +118,40 @@ def test():
 @app.route('/desc', methods=['GET','POST'])
 def desc():
     return render_template('printer/my.html')
+
+@app.route('/kin', methods=['GET','POST'])
+def kin():
+    data = Data()
+    df = data.data_leech()
+    _mapdark = folium.Map(location=[df['latitude'][0], df['longitude'][0]],zoom_start=6,attributionControl=False,tiles='cartodbdark_matter')
+    for index,row in df.iterrows():
+        folium.Circle(
+          location=[row['latitude'], row['longitude']],
+          popup=str(row['sog'])+' kn',
+          weight=1,
+          radius=5,
+          fill_color='Yellow',
+          color='Blue',
+          fill_opacity=row['sog']*0.05,
+        ).add_to(_mapdark)
+
+    data_ = Data_pred_kin()
+    df_ = data_.data_leech()
+    # _mapdark = folium.Map(location=[df['latitude'][0], df['longitude'][0]],zoom_start=6,attributionControl=False,tiles='cartodbdark_matter')
+    for index,row in df_.iterrows():
+        folium.Circle(
+          location=[row['slat'], row['slon']],
+        #   popup=str(row['sog'])+' kn',
+          weight=1,
+          radius=5,
+          fill_color='Yellow',
+          color='Green',
+        #   fill_opacity=row['sog']*0.05,
+        ).add_to(_mapdark)
+    # folium.TileLayer('cartodbdark_matter').add_to(_mapdark) # Sets Tile Theme to (Dark Theme)
+    return _mapdark._repr_html_()
+
+@app.route('/test_kin', methods=['GET','POST'])
+def test_kin():
+    messages = 'kin'
+    return render_template('printer/menu_map.html',messages=messages)

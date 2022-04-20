@@ -26,3 +26,11 @@ class Data_pred(object):
         resampling.resample()
         df = pd.read_csv('project/static/pred_vessel.csv')
         return df
+
+class Data_pred_kin(object):
+
+    def data_leech(self):
+        # df = pd.read_csv('project/static/vessel.csv')[['longitude','latitude','sog']]
+        resampling.kinematic()
+        df = pd.read_csv('project/static/kin_pred_vessel.csv')
+        return df
