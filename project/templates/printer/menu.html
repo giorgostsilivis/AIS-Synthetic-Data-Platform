@@ -187,7 +187,15 @@ body.active .wrapper .section{
                         <!-- <span class="icon"><i class="fas fa-user-friends"></i></span> -->
                         <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
                         <!-- <span class="item" onclick="window.location.href='https://www.marinetraffic.com/en/ais/details/ships/imo:{{ testvar }}';"> Map </span> -->
-                        <span class="item" onclick="window.location.href='{{ url_for('test') }}'"> Map </span>
+                        <span class="item" onclick="window.location.href='{{ url_for('test') }}'"> Resampling </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <!-- <span class="icon"><i class="fas fa-user-friends"></i></span> -->
+                        <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+                        <!-- <span class="item" onclick="window.location.href='https://www.marinetraffic.com/en/ais/details/ships/imo:{{ testvar }}';"> Map </span> -->
+                        <span class="item" onclick="window.location.href='{{ url_for('test_kin') }}'"> Kinematics </span>
                     </a>
                 </li>
                 <!-- <li>
